@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+
+
 const fs = require('fs');
 const path = require('path');
 
@@ -13,16 +16,20 @@ const customParams = nodeParams.reduce((accParams, currentParams) => {
 console.log(customParams);
 
 
-function* readAllFiles(pathDire) {
-    let res = fs.readdirSync(pathDire);
-    for (let i = 0, n = res.length; i < n; i++) {
-        let newPath = path.join(pathDire, res[i]);
-        yield newPath;
-        let stat = fs.lstatSync(newPath);
-        if (stat && stat.isDirectory()) {
-            yield* readAllFiles(newPath);
+function readAllFiles(dir) {
+    let files = fs.readdirSync(dir);
+    let allFilesName = [];
+    for (let x in files) {
+        let next = path.join(dir, files[x]);
+        if (fs.lstatSync(next).isDirectory()) {
+            allFilesName.push({dir, fileName: files[x]})
+            allFilesName = allFilesName.concat(readAllFiles(next));
+        }
+        else {
+            allFilesName.push({dir, fileName: files[x]})
         }
     }
+    return allFilesName
 }
 
 
@@ -82,15 +89,16 @@ function filterBytes(item) {
 
 
 function crawler(dir) {
-    const allFilesName = [...readAllFiles(dir)];
+    const allFilesName = readAllFiles(dir);
 
     const filtered = allFilesName
-        .filter((item) => {
-            return filterByExtension(item) && filterByType(item) && filterBytes(item);
+        .filter(({fileName, dir} = {}) => {
+            const pathItem = path.join(dir, fileName);
+            return filterByExtension(fileName) && filterByType(pathItem) && filterBytes(pathItem);
         });
 
-    filtered.forEach((item) => {
-        console.log(item);
+    filtered.forEach(({fileName, dir} = {}) => {
+        console.log(path.join(dir, fileName))
     })
 
 }

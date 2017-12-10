@@ -1,0 +1,32 @@
+{
+  "name": "nick_clisearch",
+  "version": "1.0.3",
+  "description": "search api",
+  "main": "index.js",
+  "scripts": {
+    "test": "nick_clisearch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nimmerz/-node-cli.git"
+  },
+  "keywords": [
+    "fs",
+    "path",
+    "cli"
+  ],
+  "bin": {
+    "nick_clisearch": "index.js"
+  },
+  "author": "Nickolay Kushnir",
+  "license": "ISC",
+  "devDependencies": {
+    "nick_clisearch": "^1.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/Nimmerz/-node-cli/issues"
+  },
+  "homepage": "https://github.com/Nimmerz/-node-cli#readme"
+}
+
+
