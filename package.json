@@ -1,6 +1,6 @@
 {
   "name": "nick_clisearch",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "search api",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "path to files",
     "cli",
     "file",
-    "diretory",
+    "diretory"
   ],
   "bin": {
     "nick_clisearch": "index.js"
